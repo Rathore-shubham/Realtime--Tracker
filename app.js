@@ -20,8 +20,8 @@ io.on("connection", (socket) => {
         io.emit("receive-location", { id: socket.id, ...data});
     });
 
-    socket.on("disconnect", () => {
-        console.log("Client disconnected");
+    socket.on("disconnect", function(){
+       io.emit("user-disconnected", socket.id);
     });
 });
 

@@ -20,7 +20,7 @@ if(navigator.geolocation){
 const map = L.map("map").setView([0,0], 16);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: 'Indore'
+    attribution: 'Delhi'
 }).addTo(map);
 
 const markers = {};
@@ -34,3 +34,11 @@ socket.on("receive-location", (data) => {
         markers[id] = L.marker([latitude, longitude]).addTo(map);
     }
 });
+
+
+socket.on("user-disconnected", (id) => {
+    if(markers[id]){
+        map.removeLayer(markers[id]);
+        delete markers[id];
+    }
+})
